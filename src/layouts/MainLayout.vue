@@ -17,7 +17,7 @@
       show-if-above
       v-model="leftDrawerOpen"
       side="left"
-      behavior="desktop"
+      behavior="default"
     >
       <!-- drawer content -->
       <q-tabs vertical inline-label active-color="primary" align="left">

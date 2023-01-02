@@ -5,7 +5,7 @@ google maps project with quasar
 ## Install the dependencies
 
 ```bash
-pnpm i
+npm i
 ```
 
 ### Start the app in development mode (hot-code reloading, error reporting, etc.)
@@ -17,13 +17,13 @@ quasar dev
 ### Lint the files
 
 ```bash
-pnpm lint
+npm run lint
 ```
 
 ### Format the files
 
 ```bash
-pnpm format
+npm run format
 ```
 
 ### Build the app for production
