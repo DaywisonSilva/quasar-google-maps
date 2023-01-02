@@ -12,9 +12,10 @@
           use-input
           option-label="description"
           label="Origem"
+          :loading="state.loadingOrigin"
           :options="state.options"
           ref="originRef"
-          @input-value="(val) => filterPlaces(val, originRef)"
+          @input-value="(val) => filterPlaces(val, originRef, 'origin')"
         />
       </div>
       <div class="col col-12 col-md-4">
@@ -26,8 +27,8 @@
           use-input
           option-label="description"
           label="Destino"
-          @input-value="(val) => filterPlaces(val, destinyRef)"
-          :loading="state.loading"
+          @input-value="(val) => filterPlaces(val, destinyRef, 'destiny')"
+          :loading="state.loadingDestiny"
           :options="state.options"
         />
       </div>
@@ -49,13 +50,15 @@
 import { reactive, defineComponent, onMounted, ref, UnwrapRef } from 'vue';
 import { getPlacesFromGoogleAPI } from 'src/services/google_maps';
 import { useQuasar } from 'quasar';
+import lodash from 'lodash';
 
 type State = {
   place: google.maps.places.QueryAutocompletePrediction | null;
   options: google.maps.places.QueryAutocompletePrediction[];
-  loading: boolean;
   origin: google.maps.places.QueryAutocompletePrediction | null;
   destiny: google.maps.places.QueryAutocompletePrediction | null;
+  loadingOrigin: boolean;
+  loadingDestiny: boolean;
 };
 
 export default defineComponent({
@@ -69,9 +72,10 @@ export default defineComponent({
     const state = reactive<State>({
       place: null,
       options: [],
-      loading: false,
       origin: null,
       destiny: null,
+      loadingOrigin: false,
+      loadingDestiny: false,
     });
 
     let map: google.maps.Map;
@@ -114,27 +118,48 @@ export default defineComponent({
         );
     }
 
+    const toggleLoading = {
+      origin: () => {
+        state.loadingOrigin = !state.loadingOrigin;
+      },
+      destiny: () => {
+        state.loadingDestiny = !state.loadingDestiny;
+      },
+    };
+
     const filterPlaces = (
       place: string,
-      selectRef: UnwrapRef<{ showPopup: () => void }>
+      selectRef: UnwrapRef<{ showPopup: () => void }>,
+      target: 'origin' | 'destiny'
     ) => {
       if (!!place.length) {
-        state.loading = true;
-        getPlaces(place, selectRef);
+        toggleLoading[target]();
+        const debouncedGetPlaces = lodash.debounce(getPlaces, 500);
+        debouncedGetPlaces(place, selectRef, target);
       }
     };
 
     const getPlaces = async (
       place: string,
-      selectRef: UnwrapRef<{ showPopup: () => void }>
+      selectRef: UnwrapRef<{ showPopup: () => void }>,
+      target: 'origin' | 'destiny'
     ) => {
-      const data = await getPlacesFromGoogleAPI(place);
-      state.options = data.predictions;
-
-      setTimeout(() => {
-        selectRef.showPopup();
-      }, 0);
-      state.loading = false;
+      try {
+        const data = await getPlacesFromGoogleAPI(place);
+        state.options = data.predictions;
+        setTimeout(() => {
+          selectRef.showPopup();
+        }, 0);
+      } catch (e) {
+        console.error(e);
+        $q.notify({
+          type: 'negative',
+          message: 'Não foi possível fazer a busca do lugar',
+          position: 'top',
+        });
+      } finally {
+        toggleLoading[target]();
+      }
     };
 
     const onSubmit = async () => {
