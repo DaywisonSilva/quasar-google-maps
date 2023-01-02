@@ -10,8 +10,8 @@ export default defineComponent({
 
     onMounted(() => {
       new google.maps.Map(mapRef.value as HTMLElement, {
-        center: { lat: -34.397, lng: 150.644 },
-        zoom: 8,
+        center: { lat: -9, lng: 310 },
+        zoom: 5,
       });
     });
 

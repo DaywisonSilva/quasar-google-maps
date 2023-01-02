@@ -4,7 +4,24 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
-    children: [{ path: '', component: () => import('pages/IndexPage.vue') }],
+    children: [
+      { path: '', component: () => import('src/pages/AppMap.vue') },
+      {
+        path: 'map-custom-style',
+        name: 'MapCustomStyle',
+        component: () => import('src/pages/AppMapCustomStyle.vue'),
+      },
+      {
+        path: 'streetview',
+        name: 'StreetView',
+        component: () => import('src/pages/AppStreetView.vue'),
+      },
+      {
+        path: 'directions',
+        name: 'directions',
+        component: () => import('src/pages/AppMapDirections.vue'),
+      },
+    ],
   },
 
   // Always leave this as last one,
