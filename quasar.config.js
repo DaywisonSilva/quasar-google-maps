@@ -80,11 +80,7 @@ module.exports = configure( function (/* ctx */ ) {
       // viteVuePluginOptions: {},
 
 
-      vitePlugins: [
-        ['vite-plugin-html-env', {
-          compiler: false
-        }]
-      ]
+      vitePlugins: []
     },
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#devServer
