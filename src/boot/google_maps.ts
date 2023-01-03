@@ -3,6 +3,7 @@ import { boot } from 'quasar/wrappers';
 // "async" is optional;
 // more info on params: https://v2.quasar.dev/quasar-cli/boot-files
 export default boot(async (/* { app, router, ... } */) => {
+  window.google = null!;
   // something to do
   const apiKey = import.meta.env.VITE_GOOGLE_MAPS_KEY;
   const script = document.createElement('script');

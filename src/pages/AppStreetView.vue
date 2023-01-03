@@ -34,7 +34,9 @@ export default defineComponent({
 
           map.setStreetView(panorama);
         } else {
-          recursiveRenderMap();
+          setTimeout(() => {
+            recursiveRenderMap();
+          }, 1000);
         }
       };
       recursiveRenderMap();

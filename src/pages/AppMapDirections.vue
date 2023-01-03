@@ -93,9 +93,12 @@ export default defineComponent({
 
           directionsRendererRef.value.setMap(map);
         } else {
-          recursiveRenderMap();
+          setTimeout(() => {
+            recursiveRenderMap();
+          }, 1000);
         }
       };
+      recursiveRenderMap();
     });
 
     function calculateAndDisplayRoute(

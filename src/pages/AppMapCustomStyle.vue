@@ -18,7 +18,9 @@ export default defineComponent({
             styles: MapStyles,
           });
         } else {
-          recursiveRenderMap();
+          setTimeout(() => {
+            recursiveRenderMap();
+          }, 1000);
         }
       };
       recursiveRenderMap();

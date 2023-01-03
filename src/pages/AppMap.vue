@@ -16,7 +16,9 @@ export default defineComponent({
             zoom: 5,
           });
         } else {
-          recursiveRenderMap();
+          setTimeout(() => {
+            recursiveRenderMap();
+          }, 1000);
         }
       };
       recursiveRenderMap();
