@@ -10,13 +10,18 @@ export default defineComponent({
     const mapRef = ref();
 
     onMounted(() => {
-      setTimeout(() => {
-        new google.maps.Map(mapRef.value as HTMLElement, {
-          center: { lat: -9, lng: 310 },
-          zoom: 5,
-          styles: MapStyles,
-        });
-      }, 0);
+      const recursiveRenderMap = () => {
+        if (google) {
+          new google.maps.Map(mapRef.value as HTMLElement, {
+            center: { lat: -9, lng: 310 },
+            zoom: 5,
+            styles: MapStyles,
+          });
+        } else {
+          recursiveRenderMap();
+        }
+      };
+      recursiveRenderMap();
     });
 
     return { mapRef };

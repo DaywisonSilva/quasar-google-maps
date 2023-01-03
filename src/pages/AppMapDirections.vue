@@ -81,17 +81,21 @@ export default defineComponent({
     let map: google.maps.Map;
 
     onMounted(() => {
-      setTimeout(() => {
-        directionsServiceRef.value = new google.maps.DirectionsService();
-        directionsRendererRef.value = new google.maps.DirectionsRenderer();
-        map = new google.maps.Map(mapRef.value as HTMLElement, {
-          zoom: 7,
-          fullscreenControl: false,
-          center: { lat: -9, lng: 310 },
-        });
+      const recursiveRenderMap = () => {
+        if (google) {
+          directionsServiceRef.value = new google.maps.DirectionsService();
+          directionsRendererRef.value = new google.maps.DirectionsRenderer();
+          map = new google.maps.Map(mapRef.value as HTMLElement, {
+            zoom: 7,
+            fullscreenControl: false,
+            center: { lat: -9, lng: 310 },
+          });
 
-        directionsRendererRef.value.setMap(map);
-      }, 0);
+          directionsRendererRef.value.setMap(map);
+        } else {
+          recursiveRenderMap();
+        }
+      };
     });
 
     function calculateAndDisplayRoute(

@@ -14,25 +14,30 @@ export default defineComponent({
 
     onMounted(() => {
       const fenway = { lat: -1.44, lng: 311.53 };
-      setTimeout(() => {
-        const map = new google.maps.Map(mapRef.value as HTMLElement, {
-          center: fenway,
-          zoom: 14,
-        });
+      const recursiveRenderMap = () => {
+        if (google) {
+          const map = new google.maps.Map(mapRef.value as HTMLElement, {
+            center: fenway,
+            zoom: 14,
+          });
 
-        const panorama = new google.maps.StreetViewPanorama(
-          panoRef.value as HTMLElement,
-          {
-            position: fenway,
-            pov: {
-              heading: 34,
-              pitch: 10,
-            },
-          }
-        );
+          const panorama = new google.maps.StreetViewPanorama(
+            panoRef.value as HTMLElement,
+            {
+              position: fenway,
+              pov: {
+                heading: 34,
+                pitch: 10,
+              },
+            }
+          );
 
-        map.setStreetView(panorama);
-      }, 0);
+          map.setStreetView(panorama);
+        } else {
+          recursiveRenderMap();
+        }
+      };
+      recursiveRenderMap();
     });
 
     return { state, mapRef, panoRef };
