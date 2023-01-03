@@ -9,10 +9,12 @@ export default defineComponent({
     const mapRef = ref();
 
     onMounted(() => {
-      new google.maps.Map(mapRef.value as HTMLElement, {
-        center: { lat: -9, lng: 310 },
-        zoom: 5,
-      });
+      setTimeout(() => {
+        new google.maps.Map(mapRef.value as HTMLElement, {
+          center: { lat: -9, lng: 310 },
+          zoom: 5,
+        });
+      }, 800);
     });
 
     return { mapRef };

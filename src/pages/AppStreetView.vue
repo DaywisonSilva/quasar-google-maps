@@ -14,23 +14,25 @@ export default defineComponent({
 
     onMounted(() => {
       const fenway = { lat: -1.44, lng: 311.53 };
-      const map = new google.maps.Map(mapRef.value as HTMLElement, {
-        center: fenway,
-        zoom: 14,
+      setTimeout(() => {
+        const map = new google.maps.Map(mapRef.value as HTMLElement, {
+          center: fenway,
+          zoom: 14,
+        });
+
+        const panorama = new google.maps.StreetViewPanorama(
+          panoRef.value as HTMLElement,
+          {
+            position: fenway,
+            pov: {
+              heading: 34,
+              pitch: 10,
+            },
+          }
+        );
+
+        map.setStreetView(panorama);
       });
-
-      const panorama = new google.maps.StreetViewPanorama(
-        panoRef.value as HTMLElement,
-        {
-          position: fenway,
-          pov: {
-            heading: 34,
-            pitch: 10,
-          },
-        }
-      );
-
-      map.setStreetView(panorama);
     });
 
     return { state, mapRef, panoRef };
