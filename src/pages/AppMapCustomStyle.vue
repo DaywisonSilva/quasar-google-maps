@@ -16,7 +16,7 @@ export default defineComponent({
           zoom: 5,
           styles: MapStyles,
         });
-      }, 800);
+      }, 0);
     });
 
     return { mapRef };

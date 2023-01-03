@@ -14,7 +14,7 @@ export default defineComponent({
           center: { lat: -9, lng: 310 },
           zoom: 5,
         });
-      }, 800);
+      }, 0);
     });
 
     return { mapRef };

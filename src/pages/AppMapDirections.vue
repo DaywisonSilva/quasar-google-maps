@@ -91,7 +91,7 @@ export default defineComponent({
         });
 
         directionsRendererRef.value.setMap(map);
-      }, 800);
+      }, 0);
     });
 
     function calculateAndDisplayRoute(

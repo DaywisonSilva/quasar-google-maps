@@ -32,7 +32,7 @@ export default defineComponent({
         );
 
         map.setStreetView(panorama);
-      });
+      }, 0);
     });
 
     return { state, mapRef, panoRef };
