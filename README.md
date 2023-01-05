@@ -33,7 +33,7 @@ npm i
 ### Iniciar servidor de desenvolvimento 🚧
 
 ```bash
-quasar dev
+quasar dev -m pwa
 ```
 
 ### Corrigir estilos e padrão de código (lint) 📝
@@ -51,7 +51,7 @@ npm run format
 ### Construir aplicação para produção 🚀
 
 ```bash
-quasar build
+quasar build -m pwa
 ```
 
 ### Constomizar configuração do APP
