@@ -21,6 +21,11 @@ const routes: RouteRecordRaw[] = [
         name: 'directions',
         component: () => import('src/pages/AppMapDirections.vue'),
       },
+      {
+        path: 'marker',
+        name: 'marker',
+        component: () => import('src/pages/AppMapCustomMarker.vue'),
+      },
     ],
   },
 

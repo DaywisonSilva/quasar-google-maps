@@ -40,6 +40,7 @@
           to="/directions"
           exact
         />
+        <q-route-tab icon="push_pin" label="Custom Marker" to="/marker" exact />
       </q-tabs>
     </q-drawer>
 
