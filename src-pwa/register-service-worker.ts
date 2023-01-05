@@ -28,7 +28,7 @@ register(process.env.SERVICE_WORKER_FILE, {
     // console.log('New content is downloading.')
   },
 
-  updated(registration) {
+  updated(/*registration*/) {
     Notify.create({
       color: 'primary',
       message: 'Updated content is available. Please refresh the App.',
@@ -39,9 +39,9 @@ register(process.env.SERVICE_WORKER_FILE, {
       actions: [
         {
           label: 'Refresh',
-          color: 'primary',
+          color: 'white',
           handler: () => {
-            registration.update();
+            window.location.reload();
           },
         },
         {
