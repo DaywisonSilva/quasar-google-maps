@@ -1,1 +1,5 @@
 /* app global css */
+html,
+body {
+  overscroll-behavior: contain;
+}
